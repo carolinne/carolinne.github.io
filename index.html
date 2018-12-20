@@ -1,5 +1,64 @@
-<!-- <script language="Javascript">
-var YY = 2008;
+<div id="tempo" class="box">
+	<div class="num">
+		<span id="horas"></span>
+		<p>Horas</p>
+	</div>
+	
+ <div class="num">
+		<span id="minutos"></span>
+		<p>Minutos</p>
+	</div>
+ 
+	<div class="num">
+		<span id="segundos"></span>
+		<p>Segundos</p>
+	</div>	
+</div>
+
+<script>
+const second = 1000,
+      minute = second * 60,
+      hour = minute * 60;
+      day = hour * 24;
+
+let dataLimite = new Date('Dec 21, 2018 11:30:00').getTime(),
+	
+contagemRegressiva = setInterval(function() {
+ 	
+ 	let dataHoje = new Date().getTime(),
+ 		quantoFalta = dataLimite - dataHoje;
+
+	 //passa o valor pro html
+	  document.getElementById('horas').innerHTML = Math.floor((quantoFalta % (day)) / (hour)),
+      document.getElementById('minutos').innerHTML = Math.floor((quantoFalta % (hour)) / (minute)),
+      document.getElementById('segundos').innerHTML = Math.floor((quantoFalta % (minute)) / second);
+
+	if(dataLimite < 0) {
+	 	clearInterval(contagemRegressiva);
+	 	document.getElementById("tempo").innerHTML = "ACABOOOU!!! É TETRA! É TETRA!"
+	}
+}, second);
+
+</script>
+<style type="text/css">
+.box {
+   display: flex;
+   justify-content: space-around;
+   width: 300px;
+   text-align: center;
+   margin: auto;
+   font-size: 20px;
+}
+/* .num {
+ min-width: 50px;
+ background-color: coral;
+ color: white;
+ border-radius: 10px;
+} */
+</style>
+
+
+<!-- var YY = 2008;
 var MM = 12;
 var DD = 31;
 var HH = 23;
@@ -33,8 +92,7 @@ faltam += ss+' seg';
   document.getElementById('contador').innerHTML = 'CHEGOU!!!!';	
   setTimeout(atualizaContador,1000);  
  }
-}
-</script> -->
+} -->
 
 <!-- <h1>teste mundo</h1>
 
@@ -42,65 +100,3 @@ faltam += ss+' seg';
 <time data-end="2019-12-02T19:37:53.561Z" class="counter"></time>
 <time data-end="2018-11-02T19:53:56.501Z" class="counter"></time>
 <time data-end="2018-10-30T09:52:51.401Z" class="counter"></time> -->
-
-
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Contagem Regressiva</title>
-    <script type="text/javascript">
-      
-      var horas = '00'; //DEFINE A QUANTIDADE DE HORAS
-      var minutos = '00'; //DEFINE A QUANTIDADE DE MINUTOS
-      var segundos = 10; //A QUANTIDADE DE SEGUNDOS JÁ ESTÁ DEFINIDO
-      
-      function ContRegres(){ //AQUI FOI CRIADO UMA FUNÇÃO CHAMADO ContRegres
-         segundos--; //OS SEGUNDOS VAI DECREMENTANDO
-         
-         if(segundos < 0){ //AQUI ESTÁ DIZENDO SE SEGUNDOS FOR MENOR 0 ELE IRÁ RECEBER 59
-            segundos = 59;
-            
-            minutos--; //OS MINUTOS VAI DECREMENTANDO
-            if(minutos <= 9){ //AQUI ESTÁ DIZENDO SE MINUTOS FOR MENOR IGUAL A 9 ENTÃO ACRESCENTE O 0 A ESQUERDA. EX 09, 08, 07, ETC...
-               minutos = '0' + minutos;
-            }
-         }
-         
-         if(minutos == '0-1'){ //-->
-            minutos = 5; //-->
-            
-            horas--; //AS HORAS VAI DECREMENTANDO
-            if(horas <= 9){ //AQUI FUNCIONA O MESMO PRINCÍPIO DOS MINUTOS, SEMPRE COLOCANDO O 0 A ESQUERDA
-               horas = '0' + horas;
-            }
-         }
-         
-         if(segundos <= 9){ //AQUI FUNCIONA O MESMO PRINCÍPIO DOS MINUTOS E DAS HORAS, SEMPRE COLOCANDO O 0 A ESQUERDA
-            segundos = '0' + segundos;
-         }
-         
-         if(horas == '0-1'){ //-->
-            horas = '00';
-            minutos = '00';
-            segundos = '00';
-            
-            //NA LINHA ABAIXO MOSTRA NA TELA O RESULTADO FINAL QUANDO FOR 00:00:00 E UMA MENSAGEM DE TEMPO FINALIZADO
-            clock1.innerHTML = horas + '<font color=#000>:</font>' + minutos + '<font color=#000>:</font>' + segundos + '<font color=#250202><br />Tempo Finalizado!</font>';
-         }
-         else{
-            clock1.innerHTML = horas + '<font color=#000>:</font>' + minutos + '<font color=#000>:</font>' + segundos;
-            setTimeout('ContRegres()',1000); //AQUI ESTOU A MINHA FUNÇÃO E O TEMPO EM MILISSEGUNDOS POR PARÂMETRO PARA O setTimeout
-         }
-      }
-    </script>
-  </head>
- 
-  <body>
-    <h2 align="center"><font color="#065ca5" face="tahoma">Contagem Regressiva</font></h2>
-    <hr color="#065ca5" width="100">
-    <div align="center">
-      <b><font color=#ff0000 size=2 face=arial><span id="clock1"></span><script>setTimeout('ContRegres()',1000);</script></font></b><br>
-    </div>
-  </body>
-</html>
